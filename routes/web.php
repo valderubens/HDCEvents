@@ -17,9 +17,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
 
 // DESTINO, [CONTROLLER UTILIZADO::class, 'ACTION']
-Route::get('/', [EventController::class, 'index']);
-Route::get('/events/create', [EventController::class, 'create']);
-Route::post("/events", [EventController::class, 'store']);
+Route::get('/', [EventController::class, 'index']);                 // index p/ mostrar todos os registros
+Route::get('/events/create', [EventController::class, 'create']);   // create p/ mostrar o formulário de criar registro no Banco
+Route::get('/events/{id}', [EventController::class, 'show']);       // show p/ mostrar dado específico
+Route::post("/events", [EventController::class, 'store']);          // store p/ enviar dados ao Banco
 
 Route::get('/contact', function () {
     return view('contact');

@@ -54,7 +54,7 @@
       </footer>
 
       <!-- IMPORTAÇÃO DE ÍCONES PARA A APLICAÇÃO -->
-      <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+      <script name="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
       <!-- SCRIPT DA APLICAÇÃO -->
       <script src="/js/scripts.js"></script>

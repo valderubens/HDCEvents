@@ -48,6 +48,26 @@ class EventController extends Controller
         $event->private = $request->private;
         $event->description = $request->description;
 
+        //Image Upload
+        if($request->hasFile('image') && $request->file('image')->isValid()) {
+
+            // Armazena nome da imagem nessa var
+            $requestImage = $request->image;
+
+            // Armazena a extensão da imagem nessa var
+            $extension = $requestImage->extension();
+
+            // Cria nome único para ser o path armazenado no Banco de Dados através de método md5 composto por nome da imagem + hora + extensão (PROCURAR O QUE É md5). O arquivo de fato é armazenado no servidor
+            $imageName = md5($requestImage->getClientOriginalName() . strtotime("now") . "." . $extension);
+
+            // Adicionar a imagem à pasta
+            $requestImage->move(public_path('img/events'), $imageName);
+
+            // Alteração de var (???)
+            $event->image = $imageName;
+
+        };
+
         //Salva dados enviados via método POST
         $event->save();
 
@@ -55,6 +75,16 @@ class EventController extends Controller
         //Flash message (with)
         return redirect('/')->with('msg', 'Evento criado com sucesso');
 
+
+    }
+
+    // Recebe $id como parâmetro (origem no front-end)
+    public function show($id) {
+
+        $event = Event::findOrFail($id);
+
+        // Retorna a view com os dados
+        return view('events.show', ['event' => $event]);
 
     }
 
